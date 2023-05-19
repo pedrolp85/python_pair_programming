@@ -13,6 +13,7 @@ create a pipenv shell with the Pipfile on this project
 lock dependencies
 
 install the requirements
+Cambio
 
 ## How to start a new kata
 
