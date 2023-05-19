@@ -73,7 +73,7 @@ Example
     ranked = [100, 90, 90, 80]
     player = [70, 80, 105]
 
-result = [4,3,1]
+    result = [4,3,1]
 
 ## Multiples of 3 or 5
 
