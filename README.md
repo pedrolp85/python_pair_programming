@@ -29,7 +29,11 @@ install the requirements
 
 ## How to start a new kata
 
-start a new section on this file using the last section as template
+Please create a new branch of this project including the date of the session
+
+    git checkout -b pair_session_19.05.2023
+
+Start a new section on this file using the last section as template
 introduce name, link, description to the problem you want to solve and
 a happy path test with examples
 
@@ -40,6 +44,8 @@ When you get to a common approach to the problem, start a new file .py with the 
 First write the tests!!
 
 Code the solution as a function so it could be easily tested
+
+When you finish the sesion, create a PR for at least one contributor to review
 
 Have fun!
 
