@@ -1,6 +1,6 @@
 # python_pair_programming
 
-## Climbing the leaderboard:
+## Climbing the leaderboard
 
 <https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem>
 
@@ -16,3 +16,14 @@ ranked = [100, 90, 90, 80]
 player = [70, 80, 105]
 
 result = [4,3,1]
+
+## problem name
+
+a link to the problem
+
+This is the explanation of the problem
+    - We could use bulletpoints   
+
+Example
+
+this the happy path test case
