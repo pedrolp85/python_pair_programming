@@ -4,16 +4,28 @@
 
 install Python 3.10 on your machine
 
+    add command here
+
 install pre-commit
+
+    add command here
 
 install pipenv
 
+    add command here
+
 create a pipenv shell with the Pipfile on this project
+
+    add command here
 
 lock dependencies
 
+    add command here
+
+
 install the requirements
-Cambio
+
+    add command here
 
 ## How to start a new kata
 
@@ -48,8 +60,8 @@ An arcade game player wants to climb to the top of the leaderboard and track the
 
 Example
 
-ranked = [100, 90, 90, 80]
-player = [70, 80, 105]
+    ranked = [100, 90, 90, 80]
+    player = [70, 80, 105]
 
 result = [4,3,1]
 
@@ -77,9 +89,9 @@ Write a function that takes in a string of one or more words, and returns the sa
 
 Example
 
-spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw" 
-spinWords( "This is a test") => returns "This is a test" 
-spinWords( "This is another test" )=> returns "This is rehtona test"
+    spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw" 
+    spinWords( "This is a test") => returns "This is a test" 
+    spinWords( "This is another test" )=> returns "This is rehtona test"
 
 ## problem name
 
@@ -90,4 +102,4 @@ This is the explanation of the problem
 
 Example
 
-this the happy path test case
+    this the happy path test case
