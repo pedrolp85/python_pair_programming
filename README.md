@@ -48,7 +48,7 @@ When you finish the sesion, create a PR for at least one contributor to review
 
 Please lint your code with pre-commit before creating the PR
 
-    pre-commti run --all
+    pre-commit run --all
 
 Have fun!
 
