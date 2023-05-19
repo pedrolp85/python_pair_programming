@@ -22,7 +22,7 @@ result = [4,3,1]
 a link to the problem
 
 This is the explanation of the problem
-    - We could use bulletpoints   
+    - We could use bulletpoints
 
 Example
 
