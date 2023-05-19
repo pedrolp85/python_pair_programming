@@ -1,7 +1,6 @@
-from typing import List
-
-from utilities import timeit
 from utilities import get_random_list
+from utilities import timeit
+
 
 @timeit
 def solve_ranked_pythonic(ranked, player):
@@ -53,14 +52,13 @@ def test_exec_time():
     player = get_random_list()
     solve_ranked_pythonic(ranked, player)
     solve_ranked_efficient(ranked, player)
-    
 
 
 def test_ranked_pythonic():
     ranked = [100, 90, 90, 80]
     player = [70, 80, 105]
     result = solve_ranked_pythonic(ranked, player)
-    
+
     assert result == [4, 3, 1]
 
 
@@ -68,5 +66,5 @@ def test_ranked_efficient():
     ranked = [100, 90, 90, 80]
     player = [70, 80, 105]
     result = solve_ranked_efficient(ranked, player)
-    
+
     assert result == [4, 3, 1]
