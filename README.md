@@ -1,6 +1,6 @@
 # python_pair_programming
 
-Climbing the leaderboard:
+## Climbing the leaderboard:
 
 <https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem>
 
