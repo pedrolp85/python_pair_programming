@@ -3,11 +3,15 @@
 ## How to pair programming with us
 
 install Python 3.10 on your machine
+
 install pre-commit
+
 install pipenv
 
 create a pipenv shell with the Pipfile on this project
+
 lock dependencies
+
 install the requirements
 
 ## How to start a new kata
