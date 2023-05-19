@@ -22,7 +22,6 @@ lock dependencies
 
     add command here
 
-
 install the requirements
 
     add command here
@@ -47,12 +46,17 @@ Code the solution as a function so it could be easily tested
 
 When you finish the sesion, create a PR for at least one contributor to review
 
+Please lint your code with pre-commit before creating the PR
+
+    pre-commti run --all
+
 Have fun!
 
 ## How to collaborate
 
 We have an utilities.py file with common stuff we can use
-Please document functions you think could be usefull for others
+
+Please document your functions you think could be usefull for others on that file
 
 ## Climbing the leaderboard
 
