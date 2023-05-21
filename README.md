@@ -106,6 +106,7 @@ Example
 ## Find the odd int
 
 Session: 20-05-2023
+
 Contributors: madtyn, mateocpdev, pedrolp85
 
 <https://www.codewars.com/kata/54da5a58ea159efa38000836>
@@ -127,6 +128,7 @@ Example
 a link to the problem
 
 Session: day of the session
+
 Contributors: name or github of contributors
 
 This is the explanation of the problem
