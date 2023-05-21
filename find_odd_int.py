@@ -4,7 +4,8 @@ from typing import List
 
 import pytest
 
-from utilities import timeit, get_random_list
+from utilities import get_random_list
+from utilities import timeit
 
 
 @timeit
@@ -26,21 +27,35 @@ def find_odd_int_counter(input_ints: List) -> int:
             return int(item)
 
 
-@pytest.mark.parametrize("input_list, result",
-                         [
-                             (get_random_list(min_value=5, max_value=5) + [7, 7, 7], 7),
-                             (get_random_list(min_value=5, max_value=5) + get_random_list(min_value=8, max_value=8) + [99], 99),
-                         ],
-                         ids=["case_1", "case_2"])
+@pytest.mark.parametrize(
+    "input_list, result",
+    [
+        (get_random_list(min_value=5, max_value=5) + [7, 7, 7], 7),
+        (
+            get_random_list(min_value=5, max_value=5)
+            + get_random_list(min_value=8, max_value=8)
+            + [99],
+            99,
+        ),
+    ],
+    ids=["case_1", "case_2"],
+)
 def test_find_odd_int(input_list, result):
     assert find_odd_int_default_dict(input_list) == result
 
 
-@pytest.mark.parametrize("input_list, result",
-                        [
-                             (get_random_list(min_value=5, max_value=5) + [7, 7, 7], 7),
-                             (get_random_list(min_value=5, max_value=5) + get_random_list(min_value=8, max_value=8) + [99], 99),
-                         ],
-                         ids=["case_1", "case_2"])
+@pytest.mark.parametrize(
+    "input_list, result",
+    [
+        (get_random_list(min_value=5, max_value=5) + [7, 7, 7], 7),
+        (
+            get_random_list(min_value=5, max_value=5)
+            + get_random_list(min_value=8, max_value=8)
+            + [99],
+            99,
+        ),
+    ],
+    ids=["case_1", "case_2"],
+)
 def test_find_odd_counter(input_list, result):
     assert find_odd_int_counter(input_list) == result
