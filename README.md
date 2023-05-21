@@ -91,7 +91,7 @@ Example
     number = 15 returns 45
     number = -5 returns 0
 
-## Spinnig Words
+## Spinning Words
 
 <https://www.codewars.com/kata/5264d2b162488dc400000001>
 
@@ -103,10 +103,13 @@ Example
     spinWords( "This is a test") => returns "This is a test"
     spinWords( "This is another test" )=> returns "This is rehtona test"
 
-
 ## Find the odd int
 
+Session: 20-05-2023
+Contributors: madtyn, mateocpdev, pedrolp85
+
 <https://www.codewars.com/kata/54da5a58ea159efa38000836>
+
 Given an array of integers, find the one that appears an odd number of times.
 
 There will always be only one integer that appears an odd number of times.
@@ -119,10 +122,12 @@ Example
         [0,1,0,1,0] should return 0, because it occurs 3 times (which is odd).
         [1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
 
-
 ## problem name
 
 a link to the problem
+
+Session: day of the session
+Contributors: name or github of contributors
 
 This is the explanation of the problem
     - We could use bulletpoints
