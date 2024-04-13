@@ -6,7 +6,7 @@ data:
       cluster_name: OCPCluster4
       nodes:
         - node:
-          node_labels: label_node_name:node1|label_tier:node1_tier                       
+          node_labels: label_node_name:node1|label_tier:node1_tier
           node_name: node1C
           cpu_cores: 10
           memory_gig: 8
@@ -17,14 +17,14 @@ data:
                 - pod:
                   pod_name: pod_1
                   labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
-       
+
         - node:
           node_name: node2C
           cpu_cores: 4
           memory_gig: 8
           namespaces:
             ns2:
-              namespace_labels: label_ns_name:ns2|label_tier:ns2_tier           
+              namespace_labels: label_ns_name:ns2|label_tier:ns2_tier
               pods:
                 - pod:
                   pod_name: pod_2

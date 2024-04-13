@@ -6,7 +6,7 @@ data:
       cluster_name: OCPCluster2
       nodes:
         - node:
-          node_labels: label_node_name:node1|label_tier:node1_tier        
+          node_labels: label_node_name:node1|label_tier:node1_tier
           node_name: node1B
           cpu_cores: 2
           memory_gig: 2
