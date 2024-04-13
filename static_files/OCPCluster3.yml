@@ -1,0 +1,70 @@
+---
+
+data:
+
+  - OCPCluster:
+      cluster_name: OCPCluster3
+      nodes:
+        - node:
+          node_labels: label_node_name:node1|label_tier:node1_tier        
+          node_name: node1C
+          cpu_cores: 5
+          memory_gig: 10
+          namespaces:
+            ns1:
+              namespace_labels: label_ns_name:ns1|label_tier:ns1
+              pods:
+                - pod:
+                  pod_name: pod_1
+                  labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
+                - pod:
+                  pod_name: pod_2
+                  labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
+                - pod:
+                  pod_name: pod_3
+                  labels: label_app:AppInCluster3|label_env:cluster3|label_tier:pod_3
+                - pod:
+                  pod_name: pod_4
+                  labels: label_app:AppInCluster3|label_env:cluster3|label_tier:pod_4
+
+            ns2:
+              namespace_labels: label_ns_name:ns2:|label_tier:ns2
+              pods:
+                - pod:
+                  pod_name: pod_2
+                  labels: label_app:AppInClusterA2|label_env:clusterA2|label_tier:pod_2
+       
+        - node:
+          node_name: node2C
+          node_labels: label_node_name:node2|label_tier:node2_tier                   
+          cpu_cores: 6
+          memory_gig: 10
+          namespaces:
+            ns3:
+              namespace_labels: label_ns_name:ns3|label_tier:ns3           
+              pods:
+                - pod:
+                  pod_name: pod_1
+                  labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
+                - pod:
+                  pod_name: pod_2
+                  labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
+                - pod:
+                  pod_name: pod_4
+                  labels: label_app:AppInCluster3|label_env:cluster3|label_tier:pod_4
+            ns4:
+              namespace_labels: label_ns_name:ns1|label_tier:ns1
+              pods:
+                - pod:
+                  pod_name: pod_1
+                  labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
+                - pod:
+                  pod_name: pod_4
+                  labels: label_app:AppInCluster3|label_env:cluster3|label_tier:pod_4            
+            
+            ns5:
+              namespace_labels: label_ns_name:ns2:|label_tier:ns2
+              pods:
+                - pod:
+                  pod_name: pod_2
+                  labels: label_app:AppInClusterA2|label_env:clusterA2|label_tier:pod_2

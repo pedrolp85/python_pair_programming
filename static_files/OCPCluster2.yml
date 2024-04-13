@@ -1,0 +1,22 @@
+---
+
+data:
+
+  - OCPCluster:
+      cluster_name: OCPCluster2
+      nodes:
+        - node:
+          node_labels: label_node_name:node1|label_tier:node1_tier        
+          node_name: node1B
+          cpu_cores: 2
+          memory_gig: 2
+          namespaces:
+            ns1:
+              namespace_labels: label_ns_name:ns1|label_tier:ns1_tier
+              pods:
+                - pod:
+                  pod_name: pod_1
+                  labels: label_app:AppInClusterA|label_env:clusterA|label_tier:pod_1
+                - pod:
+                  pod_name: pod_2
+                  labels: label_app:AppInCluster2|label_env:cluster2|label_tier:pod_2

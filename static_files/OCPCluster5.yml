@@ -1,0 +1,37 @@
+---
+
+data:
+
+  - OCPCluster:
+      cluster_name: OCPCluster5
+      nodes:
+        - node:
+          node_labels: label_node_name:node1|label_tier:node1_tier        
+          node_name: node1E
+          cpu_cores: 7
+          memory_gig: 1
+          namespaces:
+            ns1:
+              pods:
+                - pod:
+                  pod_name: pod_1
+                  labels: label_app:AppInCluster5|label_env:cluster5|label_tier:pod_1
+            ns2:
+              namespace_labels: label_ns_name:ns2:|label_tier:ns2
+              pods:
+                - pod:
+                  pod_name: pod_2
+                  labels: label_app:AppInCluster5|label_env:cluster5|label_tier:pod_2
+       
+        - node:
+          node_name: node2E
+          node_labels: label_node_name:node2|label_tier:node2_tier               
+          cpu_cores: 1
+          memory_gig: 1
+          namespaces:
+            ns3:
+              namespace_labels: label_ns_name:ns3|label_tier:ns3           
+              pods:
+                - pod:
+                  pod_name: pod_3
+                  labels: label_app:AppInCluster5|label_env:cluster5|label_tier:pod_3

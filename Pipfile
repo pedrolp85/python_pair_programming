@@ -4,16 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
 PyYAML = "==6.0"
 requests ="*"
-pydantic = "*"
-Requests = "*"
-datamodel-code-generator = "*"
-httpx = "*"
 pytest = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.10"
