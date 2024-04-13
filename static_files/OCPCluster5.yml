@@ -17,7 +17,7 @@ data:
                   pod_name: pod_1
                   labels: label_app:AppInCluster5|label_env:cluster5|label_tier:pod_1
             ns2:
-              namespace_labels: label_ns_name:ns2:|label_tier:ns2
+              namespace_labels: label_ns_name:ns2|label_tier:ns2
               pods:
                 - pod:
                   pod_name: pod_2

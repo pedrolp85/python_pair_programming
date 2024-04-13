@@ -28,7 +28,7 @@ data:
                   labels: label_app:AppInCluster3|label_env:cluster3|label_tier:pod_4
 
             ns2:
-              namespace_labels: label_ns_name:ns2:|label_tier:ns2
+              namespace_labels: label_ns_name:ns2|label_tier:ns2
               pods:
                 - pod:
                   pod_name: pod_2
@@ -63,7 +63,7 @@ data:
                   labels: label_app:AppInCluster3|label_env:cluster3|label_tier:pod_4            
             
             ns5:
-              namespace_labels: label_ns_name:ns2:|label_tier:ns2
+              namespace_labels: label_ns_name:ns2|label_tier:ns2
               pods:
                 - pod:
                   pod_name: pod_2
