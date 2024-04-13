@@ -12,7 +12,7 @@ def parse_yaml_file(yaml_string):
 
 
 def dict_to_cluster(parsed_yaml):
-    return None
+    return parsed_yaml
 
 
 @pytest.mark.parametrize(
@@ -32,7 +32,7 @@ def test_get_cluster_name(input_file, expected_cluster_name):
 
     cluster = dict_to_cluster(parsed_file)
 
-    cluster_name = None
+    cluster_name = cluster['data'][0]['OCPCluster']['cluster_name']
 
     assert cluster_name == expected_cluster_name
 
@@ -53,7 +53,10 @@ def test_get_cpu_count(input_file, expected_cpu_count):
     parsed_file = parse_yaml_file(read_yaml)
 
     cluster = dict_to_cluster(parsed_file)
-    cpu_cores = None
+
+    cpu_cores = 0
+    for n in cluster['data'][0]['OCPCluster']['nodes']:
+        cpu_cores += int(n['cpu_cores'])
 
     assert cpu_cores == expected_cpu_count, "Unmatched CPU count"
 
