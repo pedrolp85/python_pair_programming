@@ -180,7 +180,11 @@ def test_get_ns_by_node(input_file, nodes_regex, expected_ns):
 @pytest.mark.parametrize(
     "input_file,label,expected_label_values",
     [
-        ("static_files/OCPCluster1.yml", "ns_name", ("ns1")),
+        (
+            "static_files/OCPCluster1.yml",
+            "app",
+            ("AppInClusterA", "AppInClusterA2", "AppInClusterA3"),
+        ),
         ("static_files/OCPCluster1.yml", "tier", ("pod_1", "pod2", "pod_3")),
         ("static_files/OCPCluster1.yml", "node_name", ("node1", "node2")),
         ("static_files/OCPCluster1.yml", "ns_name", ("ns1", "ns2", "ns3")),
