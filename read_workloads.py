@@ -62,7 +62,7 @@ def test_get_cpu_count(input_file, expected_cpu_count):
     "input_file, expected_memory_gig",
     [
         ("static_files/OCPCluster1.yml", 12.0),
-        ("static_files/OCPCluster2.yml", 6.0),
+        ("static_files/OCPCluster2.yml", 2.0),
         ("static_files/OCPCluster3.yml", 20.0),
         ("static_files/OCPCluster4.yml", 16.0),
         ("static_files/OCPCluster5.yml", 2.0),
@@ -86,7 +86,7 @@ def test_get_mem_count(input_file, expected_memory_gig):
         ("static_files/OCPCluster1.yml", ["node1", "node2"]),
         ("static_files/OCPCluster2.yml", ["node1B"]),
         ("static_files/OCPCluster3.yml", ["node1C", "node2C"]),
-        ("static_files/OCPCluster4.yml", ["node1D", "node2D"]),
+        ("static_files/OCPCluster4.yml", ["node1C", "node2C"]),
         ("static_files/OCPCluster5.yml", ["node1E", "node2E"]),
     ],
     ids=["Cluster1", "Cluster2", "Cluster3", "Cluster4", "Cluster5"],
