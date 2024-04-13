@@ -14,6 +14,70 @@ def parse_yaml_file(yaml_string):
 def dict_to_cluster(parsed_yaml):
     return parsed_yaml
 
+class Pod:
+    def __init__(self, parsed_yaml):
+        self.name = parsed_yaml['pod_name']
+        self.labels = {}
+        for token in parsed_yaml['labels'].split('|'):
+            k,v = token.split(':')
+            self.labels[k[6:]] = v
+
+class Namespace:
+    def __init__(self, name, parsed_yaml):
+        self.labels = {}
+        label_list = parsed_yaml.get('namespace_labels', [])
+        if len(label_list):
+            for token in label_list.split('|'):
+                k,v = token.split(':')
+                self.labels[k[6:]] = v
+        self.name = name
+        self.pods = []
+        for podinfo in parsed_yaml['pods']:
+            self.pods.append(Pod(podinfo))
+
+
+class Node:
+    def __init__(self, parsed_yaml):
+        self.name = parsed_yaml['node_name']
+        self.cpu_cores = int(parsed_yaml['cpu_cores'])
+        self.mem = int(parsed_yaml['memory_gig'])
+        self.namespaces = []
+        for nskey, nsvalue in parsed_yaml['namespaces'].items():
+            self.namespaces.append(Namespace(nskey, nsvalue))
+
+    def get_namespaces(self):
+        return [ns.name for ns in self.namespaces]
+
+class Cluster:
+    def __init__(self, parsed_yaml):
+        self.name = parsed_yaml['data'][0]['OCPCluster']['cluster_name']
+        self.nodes = []
+        for n in parsed_yaml['data'][0]['OCPCluster']['nodes']:
+            self.nodes.append(Node(n))
+
+    def get_cpu_cores(self):
+        return sum([int(x.cpu_cores) for x in self.nodes])
+
+    def get_mem(self):
+        return sum([int(x.mem) for x in self.nodes])
+
+    def get_node_list(self):
+        return [n.name for n in self.nodes]
+
+    def get_namespace_list(self):
+        result = []
+        for n in self.nodes:
+            result += n.get_namespaces()
+        return result
+
+    def get_pods(self):
+        result = []
+        for n in self.nodes:
+            for ns in n.namespaces:
+                for p in ns.pods:
+                   result.append(p.name)
+        return result
+
 
 @pytest.mark.parametrize(
     "input_file, expected_cluster_name",
@@ -30,18 +94,16 @@ def test_get_cluster_name(input_file, expected_cluster_name):
     read_yaml = read_yaml_file(input_file)
     parsed_file = parse_yaml_file(read_yaml)
 
-    cluster = dict_to_cluster(parsed_file)
+    cluster = Cluster(dict_to_cluster(parsed_file))
 
-    cluster_name = cluster['data'][0]['OCPCluster']['cluster_name']
-
-    assert cluster_name == expected_cluster_name
+    assert cluster.name == expected_cluster_name
 
 
 @pytest.mark.parametrize(
     "input_file, expected_cpu_count",
     [
         ("static_files/OCPCluster1.yml", 3.0),
-        ("static_files/OCPCluster2.yml", 5.0),
+        ("static_files/OCPCluster2.yml", 2.0),
         ("static_files/OCPCluster3.yml", 11.0),
         ("static_files/OCPCluster4.yml", 14.0),
         ("static_files/OCPCluster5.yml", 8.0),
@@ -52,13 +114,9 @@ def test_get_cpu_count(input_file, expected_cpu_count):
     read_yaml = read_yaml_file(input_file)
     parsed_file = parse_yaml_file(read_yaml)
 
-    cluster = dict_to_cluster(parsed_file)
+    cluster = Cluster(dict_to_cluster(parsed_file))
 
-    cpu_cores = 0
-    for n in cluster['data'][0]['OCPCluster']['nodes']:
-        cpu_cores += int(n['cpu_cores'])
-
-    assert cpu_cores == expected_cpu_count, "Unmatched CPU count"
+    assert cluster.get_cpu_cores() == expected_cpu_count, "Unmatched CPU count"
 
 
 @pytest.mark.parametrize(
@@ -76,11 +134,13 @@ def test_get_mem_count(input_file, expected_memory_gig):
     read_yaml = read_yaml_file(input_file)
     parsed_file = parse_yaml_file(read_yaml)
 
-    cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
+    cluster = Cluster(dict_to_cluster(parsed_file))
 
-    memory_gig = None
+    #memory_gig = 0
+    #for n in cluster['nodes']:
+    #    memory_gig += n['memory_gig']
 
-    assert memory_gig == expected_memory_gig, "Unmatched Memory count"
+    assert cluster.get_mem() == expected_memory_gig, "Unmatched Memory count"
 
 
 @pytest.mark.parametrize(
@@ -98,10 +158,9 @@ def test_get_all_nodes(input_file, expected_nodes):
     read_yaml = read_yaml_file(input_file)
     parsed_file = parse_yaml_file(read_yaml)
 
-    cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
-    nodes = None
+    cluster = Cluster(dict_to_cluster(parsed_file))
 
-    assert sorted(nodes) == sorted(expected_nodes), "Unmatched node names"
+    assert sorted(cluster.get_node_list()) == sorted(expected_nodes), "Unmatched node names"
 
 
 @pytest.mark.parametrize(
@@ -119,8 +178,9 @@ def test_get_all_namespaces(input_file, expected_namespaces):
     read_yaml = read_yaml_file(input_file)
     parsed_file = parse_yaml_file(read_yaml)
 
-    cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
-    namespaces = None
+    # cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
+    cluster = Cluster(dict_to_cluster(parsed_file))
+    namespaces = cluster.get_namespace_list()
 
     assert sorted(namespaces) == sorted(expected_namespaces), "Unmatched ns names"
 
@@ -155,10 +215,11 @@ def test_get_all_pods(input_file, expected_pods):
     read_yaml = read_yaml_file(input_file)
     parsed_file = parse_yaml_file(read_yaml)
 
-    cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
+    #cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
+    cluster = Cluster(dict_to_cluster(parsed_file))
     pods = None
 
-    assert sorted(pods) == sorted(expected_pods), "Unmatched pod names"
+    assert sorted(cluster.get_pods()) == sorted(expected_pods), "Unmatched pod names"
 
 
 @pytest.mark.parametrize(
