@@ -175,3 +175,23 @@ def test_get_ns_by_node(input_file, nodes_regex, expected_ns):
     cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
     ns = None
     assert sorted(ns) == sorted(expected_ns), "Unmatched filtered ns names"
+
+
+@pytest.mark.parametrize(
+    "input_file,label,expected_label_values",
+    [
+        ("static_files/OCPCluster1.yml", "ns_name", ("ns1")),
+        ("static_files/OCPCluster1.yml", "tier", ("pod_1", "pod2", "pod_3")),
+        ("static_files/OCPCluster1.yml", "node_name", ("node1", "node2")),
+        ("static_files/OCPCluster1.yml", "ns_name", ("ns1", "ns2", "ns3")),
+    ],
+    ids=["node1", "node1", "node1", "node1"],
+)
+def test_get_cluster_labels(input_file, label, expected_label_values):
+    read_yaml = read_yaml_file(input_file)
+    parsed_file = parse_yaml_file(read_yaml)
+
+    cluster = dict_to_cluster(parsed_file["data"][0]["OCPCluster"])
+    label_values = None
+
+    assert label_values == expected_label_values, "Unmatched label_values"
