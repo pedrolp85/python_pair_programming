@@ -1,8 +1,8 @@
+import re
 from dataclasses import dataclass
 
 import pytest
 import yaml
-import re
 
 
 @dataclass
@@ -23,7 +23,6 @@ class Label:
 
 
 class Pod:
-
     def __init__(self, dictionary: dict):
         self.pod_name = dictionary["pod_name"]
         self.labels = Label.get_labels_from_string(dictionary.get("labels", ""))
@@ -32,13 +31,10 @@ class Pod:
         return self.pod_name
 
     def get_labels_with_depth(self, regex: str):
-        return [
-            (label.key, label.value, 3) for label in self.labels if re.match(regex, label.key)
-        ]
+        return [(label.key, label.value, 3) for label in self.labels if re.match(regex, label.key)]
 
 
 class Namespace:
-
     def __init__(self, values):
         self.name = values[0]
         self.pods = [Pod(pod) for pod in values[1].get("pods", [])]
@@ -54,12 +50,13 @@ class Namespace:
         return [
             (label.key, label.value, 2) for label in self.labels if re.match(regex, label.key)
         ] + [
-            label_with_depth for pod in self.pods for label_with_depth in pod.get_labels_with_depth(regex)
+            label_with_depth
+            for pod in self.pods
+            for label_with_depth in pod.get_labels_with_depth(regex)
         ]
 
 
 class Node:
-
     def __init__(self, dictionary: dict):
         self.name = dictionary["node_name"]
         self.labels = Label.get_labels_from_string(dictionary.get("node_labels", ""))
@@ -86,15 +83,16 @@ class Node:
         return [
             (label.key, label.value, 1) for label in self.labels if re.match(regex, label.key)
         ] + [
-            label_with_depth for namespace in self.namespaces for label_with_depth in
-            namespace.get_labels_with_depth(regex)
+            label_with_depth
+            for namespace in self.namespaces
+            for label_with_depth in namespace.get_labels_with_depth(regex)
         ]
 
 
 class Cluster:
     def __init__(self, dictionary: dict):
-        self.name = dictionary["data"][0]['OCPCluster']['cluster_name']
-        self.nodes = [Node(node) for node in dictionary["data"][0]['OCPCluster']['nodes']]
+        self.name = dictionary["data"][0]["OCPCluster"]["cluster_name"]
+        self.nodes = [Node(node) for node in dictionary["data"][0]["OCPCluster"]["nodes"]]
 
     def get_cluster_name(self):
         return self.name
@@ -123,9 +121,11 @@ class Cluster:
         ]
 
     def get_all_labels(self, regex: str):
-        labels_with_depth = [label_with_depth
-                             for node in self.nodes
-                             for label_with_depth in node.get_labels_with_depth(regex)]
+        labels_with_depth = [
+            label_with_depth
+            for node in self.nodes
+            for label_with_depth in node.get_labels_with_depth(regex)
+        ]
 
         # Compute the highest depth structure for each key
         label_highest_depth = {}
@@ -268,20 +268,20 @@ def test_get_all_namespaces(input_file, expected_namespaces):
         ("static_files/OCPCluster1.yml", ["pod_1", "pod_2", "pod_3"]),
         ("static_files/OCPCluster2.yml", ["pod_1", "pod_2"]),
         (
-                "static_files/OCPCluster3.yml",
-                [
-                    "pod_1",
-                    "pod_2",
-                    "pod_3",
-                    "pod_4",
-                    "pod_2",
-                    "pod_1",
-                    "pod_2",
-                    "pod_4",
-                    "pod_1",
-                    "pod_4",
-                    "pod_2",
-                ],
+            "static_files/OCPCluster3.yml",
+            [
+                "pod_1",
+                "pod_2",
+                "pod_3",
+                "pod_4",
+                "pod_2",
+                "pod_1",
+                "pod_2",
+                "pod_4",
+                "pod_1",
+                "pod_4",
+                "pod_2",
+            ],
         ),
         ("static_files/OCPCluster4.yml", ["pod_1", "pod_2"]),
         ("static_files/OCPCluster5.yml", ["pod_1", "pod_2", "pod_3"]),
@@ -321,9 +321,9 @@ def test_get_ns_by_node(input_file, nodes_regex, expected_ns):
     "input_file,label,expected_label_values",
     [
         (
-                "static_files/OCPCluster1.yml",
-                "app",
-                ["AppInClusterA", "AppInClusterA2", "AppInClusterA3"],
+            "static_files/OCPCluster1.yml",
+            "app",
+            ["AppInClusterA", "AppInClusterA2", "AppInClusterA3"],
         ),
         ("static_files/OCPCluster1.yml", "tier", ["pod_1", "pod_2", "pod_3"]),
         ("static_files/OCPCluster1.yml", "node_name", ["node1", "node2"]),
@@ -341,7 +341,7 @@ def test_get_cluster_labels(input_file, label, expected_label_values):
     assert label_values == expected_label_values, "Unmatched label_values"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for i in range(5):
         filename = f"static_files/OCPCluster{i + 1}.yml"
         read_yaml = read_yaml_file(filename)
